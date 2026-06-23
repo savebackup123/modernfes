@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0b0f19;
-            --bg-secondary: #131a2c;
-            --bg-card: rgba(255, 255, 255, 0.03);
+            --bg-primary: #060913;
+            --bg-secondary: rgba(255, 255, 255, 0.035);
+            --bg-card: rgba(255, 255, 255, 0.04);
             --border-card: rgba(255, 255, 255, 0.08);
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
@@ -24,7 +24,7 @@
             --accent-rose-alpha: rgba(244, 63, 94, 0.1);
             --accent-blue: #3b82f6;
             --accent-blue-alpha: rgba(59, 130, 246, 0.1);
-            --shadow-lux: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            --shadow-lux: 0 20px 50px -15px rgba(0, 0, 0, 0.5);
             --font-family: 'Prompt', 'Inter', sans-serif;
             --transition-speed: 0.3s;
         }
@@ -37,6 +37,14 @@
 
         body {
             background-color: var(--bg-primary);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.28) 0px, transparent 50%), 
+                radial-gradient(at 50% 0%, rgba(6, 182, 212, 0.25) 0px, transparent 60%), 
+                radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.2) 0px, transparent 50%),
+                radial-gradient(at 30% 50%, rgba(139, 92, 246, 0.22) 0px, transparent 55%),
+                radial-gradient(at 80% 60%, rgba(16, 185, 129, 0.22) 0px, transparent 60%),
+                radial-gradient(at 100% 100%, rgba(244, 63, 94, 0.2) 0px, transparent 50%);
+            background-attachment: fixed;
             color: var(--text-primary);
             font-family: var(--font-family);
             line-height: 1.6;
@@ -45,25 +53,40 @@
         }
 
         .ambient-glow-1 {
-            position: absolute;
+            position: fixed;
             top: -10%;
             left: -10%;
-            width: 50%;
-            height: 50%;
-            background: radial-gradient(circle, rgba(217, 119, 6, 0.08) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%);
+            z-index: -2;
             pointer-events: none;
+            filter: blur(40px);
         }
 
         .ambient-glow-2 {
-            position: absolute;
-            top: 45%;
+            position: fixed;
+            bottom: -10%;
             right: -10%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
+            width: 75vw;
+            height: 75vh;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(16, 185, 129, 0) 70%);
+            z-index: -2;
             pointer-events: none;
+            filter: blur(40px);
+        }
+
+        .ambient-glow-3 {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vh;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0) 70%);
+            z-index: -2;
+            pointer-events: none;
+            filter: blur(40px);
         }
 
         .container {
@@ -146,12 +169,13 @@
         /* Banner Intro */
         .banner-intro {
             margin-top: 40px;
-            background: linear-gradient(135deg, rgba(19, 26, 44, 0.8), rgba(11, 15, 25, 0.8));
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-card);
             border-radius: 20px;
             padding: 35px;
             box-shadow: var(--shadow-lux);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             display: flex;
             align-items: center;
             gap: 30px;
@@ -282,6 +306,8 @@
             transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
         }
 
         .lux-card::before {
@@ -390,6 +416,8 @@
             display: flex;
             gap: 15px;
             align-items: flex-start;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
         }
 
         .step-number {
@@ -431,6 +459,8 @@
             display: flex;
             gap: 20px;
             align-items: flex-start;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
         }
 
         .gap-warning-card.critical { border-left-color: var(--accent-rose); }
@@ -504,6 +534,8 @@
             border-radius: 20px;
             padding: 35px;
             box-shadow: var(--shadow-lux);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
         }
 
         @media (max-width: 950px) {
@@ -574,14 +606,16 @@
 
         /* Results Box Styling */
         .calc-results {
-            background: linear-gradient(135deg, rgba(11, 15, 25, 0.9), rgba(19, 26, 44, 0.9));
+            background: rgba(15, 23, 42, 0.55);
             border: 1px solid var(--border-card);
             border-radius: 16px;
             padding: 25px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
         }
 
         .result-title-main {
@@ -702,6 +736,8 @@
             border-radius: 12px;
             padding: 20px;
             box-shadow: var(--shadow-lux);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
         }
 
         .timeline-content h4 {
@@ -831,6 +867,7 @@
 
     <div class="ambient-glow-1"></div>
     <div class="ambient-glow-2"></div>
+    <div class="ambient-glow-3"></div>
 
     <div class="container">
         
