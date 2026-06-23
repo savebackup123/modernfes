@@ -790,6 +790,32 @@
             background-color: rgba(255, 255, 255, 0.05);
             border-color: var(--text-secondary);
         }
+
+        .mplus-logic-box {
+            background: rgba(59, 130, 246, 0.04);
+            padding: 14px;
+            border-radius: 4px 12px 12px 4px;
+            margin-top: 18px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-left: 3px solid var(--accent-blue);
+            line-height: 1.5;
+        }
+        .mplus-logic-box strong {
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+            font-size: 0.88rem;
+        }
+        .mplus-logic-box strong span {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-emerald));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
@@ -877,6 +903,11 @@
                         <li>ควบคุมสถานะความสะอาดห้องและการใช้งานคีย์การ์ด</li>
                         <li>รองรับการออกใบแจ้งหนี้ (Folio) และทำสรุปบัญชีส่งยอดให้เจ้าบ้านแต่ละราย</li>
                     </ul>
+                    <div class="mplus-logic-box">
+                        <strong><span>m+</span> Automation Logic:</strong>
+                        • <strong>Revenue Splitting:</strong> คำนวณส่วนแบ่งรายหลังอัตโนมัติโดยหักค่าคอมมิชชัน OTA ก่อนแบ่งจ่าย เจ้าบ้าน 60% และ ฝ่ายบริหาร 40% ในระบบฐานข้อมูล<br>
+                        • <strong>Smart Keycard Integration:</strong> เชื่อมต่อ API ล็อคประตู เจนเนอเรทรหัสประตูตามช่วงเวลาจองของลูกค้า และส่งให้ทีมหน้างานโดยอัตโนมัติ
+                    </div>
                 </div>
 
                 <!-- CM Card -->
@@ -891,6 +922,11 @@
                         <li>ซิงค์ยอดจองจาก OTAs เข้าสู่ปฏิทิน PMS แยกตามรายหลังอัตโนมัติ</li>
                         <li>บล็อกปฏิทินพร้อมกันในทุกระบบเมื่อบ้านหลังใดหลังหนึ่งได้รับการจองสำเร็จ</li>
                     </ul>
+                    <div class="mplus-logic-box">
+                        <strong><span>m+</span> Syncing Logic:</strong>
+                        • <strong>Real-time Stock Push:</strong> ยิงคำสั่ง API POST อัปเดตสถานะห้องว่างและราคาทันทีที่มีการเปลี่ยนแปลง<br>
+                        • <strong>Calendar Blocking:</strong> เมื่อมีจองเข้าวิลล่าหลังใดหลังหนึ่ง ระบบจะยิงปิดสต็อกวิลล่าหลังนั้นในแพลตฟอร์มอื่นทันทีเพื่อป้องกันห้องจองชน (Overbooking)
+                    </div>
                 </div>
 
                 <!-- Team Roles Card -->
@@ -905,6 +941,11 @@
                         <li><strong>E-commerce Specialist:</strong> ดูแลรูปภาพ ตกแต่งหน้าเว็บ เพิ่ม Content score</li>
                         <li><strong>Reservation Agent:</strong> คอยยืนยัน จัดการคำสั่งจองจากแพลตฟอร์ม</li>
                     </ul>
+                    <div class="mplus-logic-box">
+                        <strong><span>m+</span> Copilot Logic:</strong>
+                        • <strong>Competitor Scraping:</strong> บอทคอยสแกนดูดราคาคู่แข่งเขาใหญ่ทุกเช้าเพื่อนำข้อมูลมาเทียบและแนะนำการปรับราคาขาย<br>
+                        • <strong>AI Reservation Support:</strong> ระบบแชทบอทตอบคำถามเช็คห้องว่างอัตโนมัติบนเพจ/LINE ช่วยแนะนำและปิดการขายตรงได้รวดเร็ว
+                    </div>
                 </div>
             </div>
 
@@ -920,6 +961,7 @@
                     <div class="step-info">
                         <h4>วางแผนการตลาดบน OTAs</h4>
                         <p>วิเคราะห์ช่องว่างการตลาดเพื่อเพิ่มรายได้ระยะสั้นและยาว</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> คาดการณ์เป้าหมายรายได้รายเดือน วิเคราะห์กลุ่มเป้าหมายสากล และสร้างแผนการจำหน่ายห้องพัก</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -927,6 +969,7 @@
                     <div class="step-info">
                         <h4>ปรับกลยุทธ์ลดรายจ่าย</h4>
                         <p>ปรับการปิดห้องและลดคอมมิชชันที่ไม่จำเป็น</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> ตรวจสอบเงื่อนไขสัญญา OTA ป้องกันคอมมิชชันทับซ้อน และวิเคราะห์ส่วนประหยัดจากการย้ายลูกค้าจองตรง (Direct)</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -934,6 +977,7 @@
                     <div class="step-info">
                         <h4>จัดโครงสร้างราคาขายแบบยืดหยุ่น</h4>
                         <p>ทำเรทราคาแบบ Dynamic pricing รองรับทุกเทศกาล</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> กำหนดเรทราคาแปรผันตามฤดูกาล, วันธรรมดา/วันหยุด และตั้งราคายืดหยุ่นตามจำนวนคนเข้าพัก (Occupancy-based)</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -941,6 +985,7 @@
                     <div class="step-info">
                         <h4>วิเคราะห์พฤติกรรมการจอง</h4>
                         <p>เจาะลึกข้อมูลลูกค้า จองวันไหน พักกี่คืน เพื่อจัดกลุ่มให้ตรงเป้า</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> ตรวจจับสถิติมองหาระยะเวลาจองล่วงหน้า (Lead Time) เฉลี่ยเพื่อปล่อยโปรโมชั่น Early Bird ได้แม่นยำ</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -948,6 +993,7 @@
                     <div class="step-info">
                         <h4>วิเคราะห์คู่แข่งโดยรอบ</h4>
                         <p>ติดตามอัตราค่าห้องและการทำโปรโมชั่นคู่แข่งในเขาใหญ่</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> รันบอทกวาดราคาคู่แข่งพิกัดเขาใหญ่ทุกวัน วิเคราะห์ความได้เปรียบของวิลล่าสนามกว้างและสนามเล็กของเรา</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -955,6 +1001,7 @@
                     <div class="step-info">
                         <h4>Activity Planning & Campaigns</h4>
                         <p>วิเคราะห์เข้าร่วมแฟลชเซล แคมเปญหลัก (เช่น 6.6, 7.7) ของ OTAs</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> คำนวณความคุ้มค่าและกำไรสุทธิหลังหักลบเปอร์เซ็นต์ส่วนลดของแคมเปญหลัก ก่อนยืนยันเข้าร่วมระบบ</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -962,6 +1009,7 @@
                     <div class="step-info">
                         <h4>ปรับค่า Content Score หน้าเว็บ</h4>
                         <p>แก้ไขรูปภาพ ข้อมูล อำนวยความสะดวกให้ได้คะแนนเต็ม 100%</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> แก้ไข URL Slug Booking.com (`pool-villa`) ปรับข้อมูลแท็กสิ่งอำนวยความสะดวก และแปลเนื้อหาเป็นภาษาอังกฤษ/จีน</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -969,6 +1017,7 @@
                     <div class="step-info">
                         <h4>รวมค่าติดตั้งระบบ PMS & CM</h4>
                         <p>ดูแลงานติดตั้ง เชื่อมสัญญาณ ซอฟต์แวร์โดยทีมงานผู้เชี่ยวชาญ</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> วางระบบและเชื่อมโยง API ของปฏิทินที่พัก, ซอฟต์แวร์กระจายสต็อก และระบบควบคุม Smart Lock หน้างาน</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -976,6 +1025,7 @@
                     <div class="step-info">
                         <h4>วิดีโออบรมการใช้งาน PMS</h4>
                         <p>จัดทำสื่อสอนพนักงานหน้าฟร้อนต์ในการใช้ระบบ PMS ตลอดชีพ</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> สร้างวิดีโอคู่มือฝึกอบรมแม่บ้านและหน้าฟร้อนต์ในการจัดการห้องพัก และระบบวนคิวเพื่อความยุติธรรมแก่เจ้าบ้าน</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -983,6 +1033,7 @@
                     <div class="step-info">
                         <h4>ซิงค์โครงสร้างราคากับ OTAs</h4>
                         <p>ผูกข้อมูลราคาระหว่าง Channel Manager กับ Agoda/Booking.com</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> ผูกราคาระบบ หากผู้จัดการราคาปรับเปลี่ยนราคาบน PMS ราคาบนเว็บเอเจนซี่จะปรับตามเรียลไทม์ภายใน 3 วินาที</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -990,6 +1041,7 @@
                     <div class="step-info">
                         <h4>เชื่อมปฏิทินที่พักหลักกับ OTAs</h4>
                         <p>ผูกวันและสต็อกไม่ให้ทับซ้อนและเปิดขายตลอดเวลา</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> โลจิกปิดขายสต็อกทันที (Instant Close API) ยิงสัญญาณบล็อกปฏิทินบนทุกแพลตฟอร์มเมื่อมีห้องโดนจองสำเร็จ</span>
                     </div>
                 </div>
                 <div class="step-item">
@@ -997,6 +1049,7 @@
                     <div class="step-info">
                         <h4>ประสานงานเตรียมความพร้อม</h4>
                         <p>ประชุมซักซ้อมระหว่างทีมโรงแรมและทีม ORM ของ m+ Modernfes</p>
+                        <span style="font-size:0.75rem; color:var(--accent-blue); display:block; margin-top:5px;"><strong>m+ Logic:</strong> รัน Dry Run ทดสอบจำลองลูกค้าจองห้องพักเพื่อตรวจเช็คสัญญาณ Webhook ตลอดจนความถูกต้องของใบแจ้งหนี้อัตโนมัติ</span>
                     </div>
                 </div>
             </div>
