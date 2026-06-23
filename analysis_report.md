@@ -90,3 +90,17 @@ We compared Modernfes Pool Villa with two distinct competitor types in Khao Yai:
   * **Agoda Preferred / Booking.com Preferred:** Opt in to gain search ranking boosts.
   * **Mobile-only rates:** Offer a 10% discount for mobile bookings (since most travelers book Khao Yai trips on mobile).
   * **Genius Rates:** Participate in Booking.com Genius to target loyalty travelers.
+
+### 🤝 Step 5: Khao Yai Local Partnerships & Referral Network
+* Partner with popular local cafes, vineyards (e.g., GranMonte), and tourist attractions. 
+* Provide modernfes guests with exclusive discount vouchers, and earn referral commissions for booking tours or reservations. This compensates for the isolated location (24 km out) and provides high-margin ancillary revenue for the management team (100% management margin).
+
+### 🎁 Step 6: Weekday Value-Add Upgrades (Attracting Mid-week Guests)
+* Avoid reducing weekday room rates too low, which hurts the owners' 60% split. Instead, offer high-perceived-value, low-cost add-ons for Mon-Thu stays:
+  * Free floating breakfast tray set for pool photography.
+  * Free BBQ charcoal set and complimentary grill lighting service by maid staff.
+  * Free early check-in or late check-out (subject to calendar availability).
+
+### 👥 Step 7: Direct Booking Referral & Loyalty Program
+* Launch a "Refer-a-Friend" campaign on LINE and Facebook. Give a 500 THB discount voucher for the next stay to both the referrer and the referred guest.
+* Offer returning loyalty guests a free serving of the famous signature grilled pork neck (คอหมูย่าง) or welcome drinks. This is significantly cheaper than social media ad spending or paying 15% commissions to OTAs.
