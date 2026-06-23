@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจำลองโมเดลธุรกิจพูลวิลล่าและแผน ORM - Modernfes Pool Villa Khao Yai</title>
+    <!-- Google Fonts: Prompt for Thai, Inter for English/Numbers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #131a2c;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-card: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-gold: #d97706;
+            --accent-gold-hover: #b45309;
+            --accent-emerald: #10b981;
+            --accent-emerald-alpha: rgba(16, 185, 129, 0.1);
+            --accent-rose: #f43f5e;
+            --accent-rose-alpha: rgba(244, 63, 94, 0.1);
+            --accent-blue: #3b82f6;
+            --accent-blue-alpha: rgba(59, 130, 246, 0.1);
+            --shadow-lux: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            --font-family: 'Prompt', 'Inter', sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 60px;
+        }
+
+        .ambient-glow-1 {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(217, 119, 6, 0.08) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            top: 45%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Premium Header */
+        header {
+            padding: 50px 0 30px;
+            border-bottom: 1px solid var(--border-card);
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-badge {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-emerald));
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 20px rgba(217, 119, 6, 0.3);
+        }
+
+        .logo-title h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, #ffffff, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-title p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .meta-badge {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-card);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-emerald);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px var(--accent-emerald);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        /* Banner Intro */
+        .banner-intro {
+            margin-top: 40px;
+            background: linear-gradient(135deg, rgba(19, 26, 44, 0.8), rgba(11, 15, 25, 0.8));
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow-lux);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .banner-icon {
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(16, 185, 129, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .banner-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: none;
+            stroke: url(#gold-emerald-grad);
+            stroke-width: 2;
+        }
+
+        .banner-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .banner-text h2 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .banner-text p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Navigation Tabs */
+        .tab-nav {
+            display: flex;
+            gap: 10px;
+            margin: 40px 0 25px;
+            border-bottom: 1px solid var(--border-card);
+            padding-bottom: 1px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tab-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: var(--font-family);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all var(--transition-speed) ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent-emerald);
+            border-bottom-color: var(--accent-emerald);
+            font-weight: 600;
+        }
+
+        /* Tab Panels */
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 500px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Premium Cards */
+        .lux-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-lux);
+            transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lux-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            transition: background var(--transition-speed) ease;
+        }
+
+        .lux-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .card-emerald:hover::before { background: linear-gradient(to right, var(--accent-emerald), transparent); }
+        .card-gold:hover::before { background: linear-gradient(to right, var(--accent-gold), transparent); }
+        .card-rose:hover::before { background: linear-gradient(to right, var(--accent-rose), transparent); }
+        .card-blue:hover::before { background: linear-gradient(to right, var(--accent-blue), transparent); }
+
+        .card-header-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .icon-emerald { background-color: var(--accent-emerald-alpha); color: var(--accent-emerald); }
+        .icon-gold { background-color: rgba(217, 119, 6, 0.1); color: var(--accent-gold); }
+        .icon-rose { background-color: var(--accent-rose-alpha); color: var(--accent-rose); }
+        .icon-blue { background-color: var(--accent-blue-alpha); color: var(--accent-blue); }
+
+        .lux-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .lux-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .bullet-list {
+            list-style: none;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 5px;
+            top: 0;
+            font-weight: bold;
+        }
+
+        .bullet-list.bullet-emerald li::before { color: var(--accent-emerald); }
+        .bullet-list.bullet-gold li::before { color: var(--accent-gold); }
+        .bullet-list.bullet-rose li::before { color: var(--accent-rose); }
+        .bullet-list.bullet-blue li::before { color: var(--accent-blue); }
+
+        /* Setup Steps Section */
+        .section-title {
+            font-size: 1.4rem;
+            margin: 30px 0 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title span {
+            background-color: var(--accent-emerald-alpha);
+            color: var(--accent-emerald);
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+
+        .step-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .step-item {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--bg-primary), var(--border-card));
+            border: 1px solid var(--border-card);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            flex-shrink: 0;
+        }
+
+        .step-info h4 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .step-info p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Gap & Strategic Recommendations */
+        .gap-warning-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-card);
+            border-left: 4px solid var(--accent-rose);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-lux);
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .gap-warning-card.critical { border-left-color: var(--accent-rose); }
+        .gap-warning-card.recommendation { border-left-color: var(--accent-gold); }
+        .gap-warning-card.strategy { border-left-color: var(--accent-blue); }
+
+        .gap-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .gap-warning-card.critical .gap-icon { background-color: var(--accent-rose-alpha); color: var(--accent-rose); }
+        .gap-warning-card.recommendation .gap-icon { background-color: rgba(217, 119, 6, 0.1); color: var(--accent-gold); }
+        .gap-warning-card.strategy .gap-icon { background-color: var(--accent-blue-alpha); color: var(--accent-blue); }
+
+        .gap-details {
+            flex: 1;
+        }
+
+        .gap-details h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gap-details h4 .badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .gap-warning-card.critical .badge { background-color: var(--accent-rose-alpha); color: var(--accent-rose); }
+        .gap-warning-card.recommendation .badge { background-color: rgba(217, 119, 6, 0.1); color: var(--accent-gold); }
+        .gap-warning-card.strategy .badge { background-color: var(--accent-blue-alpha); color: var(--accent-blue); }
+
+        .gap-details p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .impact-box {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            border: 1px dashed rgba(255,255,255,0.05);
+            margin-top: 10px;
+        }
+
+        .impact-box strong {
+            color: var(--text-primary);
+        }
+
+        /* Upgraded Calculator (Tab 3) */
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 30px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow-lux);
+        }
+
+        @media (max-width: 950px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .calc-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slider-header label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .slider-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            background-color: var(--bg-primary);
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-card);
+        }
+
+        .lux-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--bg-primary);
+            outline: none;
+            border: 1px solid var(--border-card);
+        }
+
+        .lux-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-emerald));
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(217,119,6,0.5);
+            transition: transform 0.1s;
+        }
+
+        .lux-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Results Box Styling */
+        .calc-results {
+            background: linear-gradient(135deg, rgba(11, 15, 25, 0.9), rgba(19, 26, 44, 0.9));
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .result-title-main {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-card);
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        .result-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+        }
+
+        .result-group:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .result-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .result-val {
+            font-size: 1.25rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+        }
+
+        .result-val.highlight-emerald {
+            color: var(--accent-emerald);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+            font-size: 1.45rem;
+        }
+
+        .result-val.highlight-gold {
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px rgba(217, 119, 6, 0.2);
+            font-size: 1.35rem;
+        }
+
+        .result-val.highlight-rose {
+            color: var(--accent-rose);
+            font-size: 1.15rem;
+        }
+
+        .result-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            line-height: 1.3;
+        }
+
+        /* Timeline Roadmap */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50px;
+            width: 2px;
+            height: 100%;
+            background-color: var(--border-card);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 90px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 36px;
+            top: 4px;
+            width: 30px;
+            height: 30px;
+            background-color: var(--bg-primary);
+            border: 3px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(217, 119, 6, 0.3);
+        }
+
+        .timeline-item.active .timeline-dot {
+            border-color: var(--accent-emerald);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+        }
+
+        .timeline-content {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow-lux);
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .timeline-content .time-badge {
+            display: inline-block;
+            background-color: var(--accent-emerald-alpha);
+            color: var(--accent-emerald);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+        }
+
+        .timeline-content ul li {
+            position: relative;
+            padding-left: 15px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .timeline-content ul li::before {
+            content: "›";
+            position: absolute;
+            left: 0;
+            top: -1px;
+            color: var(--accent-emerald);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Proposal Actions */
+        .proposal-actions {
+            margin-top: 50px;
+            border-top: 1px solid var(--border-card);
+            padding-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-family);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-emerald), #059669);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--border-card);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <svg style="display: none;">
+        <defs>
+            <linearGradient id="gold-emerald-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#d97706" />
+                <stop offset="100%" stop-color="#10b981" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <div class="logo-area">
+                    <div class="logo-badge">H+</div>
+                    <div class="logo-title">
+                        <h1>Online Revenue Management Proposal</h1>
+                        <p>สำหรับ Modernfes Pool Villa Khao Yai (ระบบสหกรณ์พูลวิลล่า 7 หลัง)</p>
+                    </div>
+                </div>
+                <div class="meta-badge">
+                    <span class="status-dot"></span>
+                    <span>โมเดลธุรกิจแบ่งสัดส่วนรายได้ 60/40 แบบไดนามิก</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Banner Intro -->
+        <div class="banner-intro">
+            <div class="banner-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="banner-text">
+                <h2>ยกระดับการขายของโรงแรมเข้าสู่ระบบสากลด้วยทีม ORM</h2>
+                <p>โมเดลธุรกิจของสหกรณ์ Modernfes: มีวิลล่าปล่อยเช่ารวม 7 หลัง (สนามกว้าง 3 หลัง, สนามเล็ก 4 หลัง) แบ่งรายได้หลังหักคอมมิชชัน OTA ให้กับ <strong>เจ้าของบ้าน 60%</strong> (จ่ายค่าน้ำไฟเน็ตยามเอง) และ <strong>ฝ่ายบริหาร 40%</strong> (รับผิดชอบเงินเดือนพนักงานและค่าการตลาด)</p>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab(event, 'scope-tab')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                สิทธิประโยชน์และทีมงานที่ได้รับ
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'gap-tab')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                กลยุทธ์ช่องโหว่ & บริหารสหกรณ์
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'roi-tab')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                เครื่องมือจำลองรายได้และกำไรสุทธิ
+            </button>
+            <button class="tab-btn" onclick="switchTab(event, 'timeline-tab')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                ไทม์ไลน์ขึ้นระบบ
+            </button>
+        </div>
+
+        <!-- PANEL 1: Scope of Services -->
+        <div id="scope-tab" class="tab-panel active">
+            <div class="grid-3">
+                <!-- PMS Card -->
+                <div class="lux-card card-emerald">
+                    <div class="card-header-icon icon-emerald">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+                    </div>
+                    <h3>ระบบจัดการห้องพัก (PMS)</h3>
+                    <p>ระบบควบคุมปฏิทิน เช็คอิน-เช็คเอาต์ หน้าฟร้อนต์ของโรงแรม เพื่อจัดการห้องพักอย่างมีประสิทธิภาพ</p>
+                    <ul class="bullet-list bullet-emerald">
+                        <li>ลงทะเบียนบันทึกประวัติการจองแยกบัญชีรายได้ของบ้านแต่ละหลัง</li>
+                        <li>ควบคุมสถานะความสะอาดห้องและการใช้งานคีย์การ์ด</li>
+                        <li>รองรับการออกใบแจ้งหนี้ (Folio) และทำสรุปบัญชีส่งยอดให้เจ้าบ้านแต่ละราย</li>
+                    </ul>
+                </div>
+
+                <!-- CM Card -->
+                <div class="lux-card card-gold">
+                    <div class="card-header-icon icon-gold">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3>Channel Manager (CM)</h3>
+                    <p>ระบบเชื่อมโยงปฏิทินป้องการจองทับซ้อน (Overbooking) ซิงค์ห้องว่างและราคากับ OTAs เรียลไทม์</p>
+                    <ul class="bullet-list bullet-gold">
+                        <li>กระจายราคาและสต็อกห้องไปทุกแพลตฟอร์มพร้อมกันในวินาทีเดียว</li>
+                        <li>ซิงค์ยอดจองจาก OTAs เข้าสู่ปฏิทิน PMS แยกตามรายหลังอัตโนมัติ</li>
+                        <li>บล็อกปฏิทินพร้อมกันในทุกระบบเมื่อบ้านหลังใดหลังหนึ่งได้รับการจองสำเร็จ</li>
+                    </ul>
+                </div>
+
+                <!-- Team Roles Card -->
+                <div class="lux-card card-blue">
+                    <div class="card-header-icon icon-blue">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>ทีมงาน ORM ที่เข้ามารองรับ</h3>
+                    <p>ทีมผู้เชี่ยวชาญสามตำแหน่งหลักเข้ามาดูแลช่องทางออนไลน์ทดแทนการจ้างพนักงานประจำ</p>
+                    <ul class="bullet-list bullet-blue">
+                        <li><strong>Revenue Manager:</strong> วิเคราะห์ตั้งราคา วางกลยุทธ์ทำโปรโมชั่น</li>
+                        <li><strong>E-commerce Specialist:</strong> ดูแลรูปภาพ ตกแต่งหน้าเว็บ เพิ่ม Content score</li>
+                        <li><strong>Reservation Agent:</strong> คอยยืนยัน จัดการคำสั่งจองจากแพลตฟอร์ม</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Setup Points Checklist -->
+            <div class="section-title">
+                ขอบเขตการทำงานในการจัดตั้งระบบ (ORM Setup Scope)
+                <span>12 ขั้นตอนการเริ่มระบบ</span>
+            </div>
+
+            <div class="step-list-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-info">
+                        <h4>วางแผนการตลาดบน OTAs</h4>
+                        <p>วิเคราะห์ช่องว่างการตลาดเพื่อเพิ่มรายได้ระยะสั้นและยาว</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-info">
+                        <h4>ปรับกลยุทธ์ลดรายจ่าย</h4>
+                        <p>ปรับการปิดห้องและลดคอมมิชชันที่ไม่จำเป็น</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-info">
+                        <h4>จัดโครงสร้างราคาขายแบบยืดหยุ่น</h4>
+                        <p>ทำเรทราคาแบบ Dynamic pricing รองรับทุกเทศกาล</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-info">
+                        <h4>วิเคราะห์พฤติกรรมการจอง</h4>
+                        <p>เจาะลึกข้อมูลลูกค้า จองวันไหน พักกี่คืน เพื่อจัดกลุ่มให้ตรงเป้า</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <div class="step-info">
+                        <h4>วิเคราะห์คู่แข่งโดยรอบ</h4>
+                        <p>ติดตามอัตราค่าห้องและการทำโปรโมชั่นคู่แข่งในเขาใหญ่</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">6</div>
+                    <div class="step-info">
+                        <h4>Activity Planning & Campaigns</h4>
+                        <p>วิเคราะห์เข้าร่วมแฟลชเซล แคมเปญหลัก (เช่น 6.6, 7.7) ของ OTAs</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">7</div>
+                    <div class="step-info">
+                        <h4>ปรับค่า Content Score หน้าเว็บ</h4>
+                        <p>แก้ไขรูปภาพ ข้อมูล อำนวยความสะดวกให้ได้คะแนนเต็ม 100%</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">8</div>
+                    <div class="step-info">
+                        <h4>รวมค่าติดตั้งระบบ PMS & CM</h4>
+                        <p>ดูแลงานติดตั้ง เชื่อมสัญญาณ ซอฟต์แวร์โดยทีมงานผู้เชี่ยวชาญ</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">9</div>
+                    <div class="step-info">
+                        <h4>วิดีโออบรมการใช้งาน PMS</h4>
+                        <p>จัดทำสื่อสอนพนักงานหน้าฟร้อนต์ในการใช้ระบบ PMS ตลอดชีพ</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">10</div>
+                    <div class="step-info">
+                        <h4>ซิงค์โครงสร้างราคากับ OTAs</h4>
+                        <p>ผูกข้อมูลราคาระหว่าง Channel Manager กับ Agoda/Booking.com</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">11</div>
+                    <div class="step-info">
+                        <h4>เชื่อมปฏิทินที่พักหลักกับ OTAs</h4>
+                        <p>ผูกวันและสต็อกไม่ให้ทับซ้อนและเปิดขายตลอดเวลา</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">12</div>
+                    <div class="step-info">
+                        <h4>ประสานงานเตรียมความพร้อม</h4>
+                        <p>ประชุมซักซ้อมระหว่างทีมโรงแรมและทีม ORM ก่อนเปิดสัญญาณจริง</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 2: Gap Analysis & Cooperative Strategy -->
+        <div id="gap-tab" class="tab-panel">
+            <div class="section-title" style="margin-top:0;">
+                กลยุทธ์การบริหารงานสำหรับพูลวิลล่าเครือข่าย 7 หลัง
+                <span>วิเคราะห์โครงสร้างธุรกิจเพื่อความอยู่รอด</span>
+            </div>
+
+            <!-- Strategy 1 -->
+            <div class="gap-warning-card strategy">
+                <div class="gap-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                </div>
+                <div class="gap-details">
+                    <h4>กลยุทธ์การแบ่งราคาแยกประเภทสินค้า (สนามกว้าง vs สนามเล็ก) <span class="badge">Strategy</span></h4>
+                    <p>เรามีทรัพย์สิน 2 รูปแบบที่แตกต่างกันชัดเจน: <strong>สนามกว้าง 3 หลัง</strong> และ <strong>สนามเล็ก 4 หลัง</strong> จึงไม่ควรตั้งราคาเท่ากันเด็ดขาด</p>
+                    <p>• <strong>กลุ่มสนามกว้าง (3 หลัง):</strong> เน้นตั้งราคาสูงระดับพรีเมียม เจาะกลุ่มท่องเที่ยวครอบครัวใหญ่ปาร์ตี้, นำสุนัขมาวิ่งเล่นได้, จัดแคมป์ปิ้งปิ้งย่างบาร์บีคิวกลางสวนใหญ่ หรือการจัดเอาท์ติ้งบริษัทขนาดเล็ก</p>
+                    <p>• <strong>กลุ่มสนามเล็ก (4 หลัง):</strong> เน้นตั้งราคาคุ้มค่า เจาะกลุ่มต้องการความเป็นส่วนตัว แช่น้ำพักผ่อนสโลว์ไลฟ์ หรือปาร์ตี้ในร่ม ไม่เน้นพื้นที่สันทนาการกลางแจ้ง</p>
+                    <div class="impact-box">
+                        <strong>แผนงานแนะนำ:</strong> ปรับตั้งราคาตั้งต้น (ADR) ของกลุ่มสนามกว้างให้สูงขึ้น 20-30% จากกลุ่มสนามเล็ก เพื่อเพิ่มสัดส่วนรายได้เฉลี่ยของภาพรวม
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategy 2 -->
+            <div class="gap-warning-card strategy">
+                <div class="gap-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div class="gap-details">
+                    <h4>ระบบจัดสรรคิวการจองให้เป็นธรรมแก่เจ้าบ้านทุกราย (Fair Booking Allocation) <span class="badge">Strategy</span></h4>
+                    <p>เนื่องจากเป็นสหกรณ์รวมกลุ่ม หากเราบริหารจัดการจองกระจุกตัวอยู่เฉพาะบ้านบางหลัง เจ้าของบ้านหลังที่ไม่ได้ยอดจองจะถอนตัวออกจากกลุ่มและทำให้เราขาดความน่าเชื่อถือ</p>
+                    <div class="impact-box">
+                        <strong>แนวทางควบคุม:</strong> ต้องตั้งค่าระบบ PMS/Channel Manager ให้จัดสรรคิวห้องว่างแบบวนรอบ (Rotation List) สำหรับบ้านในกลุ่มประเภทเดียวกัน เช่น หากมีห้องกลุ่มสนามเล็กว่าง ระบบต้องจับคิวป้อนให้บ้านหลังที่ 1 -> 2 -> 3 -> 4 ตามลำดับ เพื่อให้เจ้าบ้านทุกคนพึงพอใจและได้รายได้เท่าเทียม
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategy 3 -->
+            <div class="gap-warning-card critical">
+                <div class="gap-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                </div>
+                <div class="gap-details">
+                    <h4>ทำไมต้องดันยอดจองตรง (Direct Booking) จาก Facebook? (วิเคราะห์กำไร 60/40) <span class="badge">Critical</span></h4>
+                    <p>ส่วนแบ่งของเราคือ 40% ของยอดจองสุทธิหลังหักคอมมิชชัน OTA หากเราจองผ่าน OTA 100% รายได้เราจะลดลงอย่างมากเนื่องจากโดนหักคอมมิชชันออกไปก่อน</p>
+                    <div class="impact-box">
+                        <strong>ตัวอย่างการคำนวณผลดีของการจองตรง:</strong><br>
+                        • <strong>จองผ่าน OTA (เช่น Agoda หักคอมมิชชัน 15%):</strong> จองห้องพักราคา 10,000 บาท โดนหักค่าคอม 1,500 บาท เหลือ 8,500 บาท -> เจ้าบ้านได้ 60% = 5,100 บาท | เราได้ 40% = <strong>3,400 บาท</strong><br>
+                        • <strong>จองตรงผ่านเพจ Facebook (คอมมิชชัน 0%):</strong> เงินเข้าเต็ม 10,000 บาท -> เจ้าบ้านได้ 60% = 6,000 บาท | เราได้ 40% = <strong>4,000 บาท</strong><br>
+                        <strong>สรุป:</strong> ยอดจองตรงเพิ่มกำไรให้เราทันที 17.6% ต่อห้อง และเจ้าบ้านแฮปปี้ได้รายได้เพิ่มด้วย ดังนั้นต้องใช้ระบบ Booking Engine บน Facebook เพื่อรับระบบจองอัตโนมัติ
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategy 4 -->
+            <div class="gap-warning-card recommendation">
+                <div class="gap-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <div class="gap-details">
+                    <h4>การควบคุมค่าไฟและสาธารณูปโภคเพื่อรักษาความพึงพอใจของเจ้าบ้าน <span class="badge">Recommend</span></h4>
+                    <p>เจ้าบ้านเป็นผู้จ่ายค่าน้ำ (เฉลี่ย 2,000 บาท) ค่าไฟ (เฉลี่ย 4,000 - 10,000 บาท) ค่าเน็ตและยาม (1,000 บาท) หากลูกค้าเปิดแอร์ทิ้งไว้หรือเปิดเครื่องทำความร้อนสระว่ายน้ำตลอดเวลา ค่าไฟของเจ้าบ้านจะพุ่งสูงจนเกือบหมดกำไร</p>
+                    <div class="impact-box">
+                        <strong>ข้อแนะนำเชิงป้องกัน:</strong> ทีมแม่บ้าน/ผู้จัดการหน้างานต้องทำการติดตั้งอุปกรณ์จำกัดชั่วโมงแอร์ หรือใช้ระบบคีย์การ์ดควบคุมพลังงานเมื่อลูกค้าออกนอกบ้าน และมีป้ายรณรงค์การปิดไฟฟ้าในจุดสำคัญ เพื่อดูแลรักษาผลกำไรให้เจ้าของบ้าน และช่วยรั้งไม่ให้เจ้าของบ้านถอนตัวออกจากการร่วมกลุ่ม
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 3: ROI & Business Simulator -->
+        <div id="roi-tab" class="tab-panel">
+            <div class="calculator-container">
+                <div class="calc-sliders">
+                    <div class="section-title" style="margin-top:0;">
+                        เครื่องมือจำลองรายได้และกำไรสุทธิแบบ 7 หลัง (Cooperative Business Simulator)
+                        <span>ปรับข้อมูลตามราคาและค่าใช้จ่ายจริง</span>
+                    </div>
+
+                    <!-- Occupancy Rate Slider -->
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="occupancy-slider">อัตราการเข้าพักเป้าหมายโดยเฉลี่ยต่อเดือน (Occupancy Rate %)</label>
+                            <span class="slider-value"><span id="occ-val">40</span>%</span>
+                        </div>
+                        <input type="range" id="occupancy-slider" class="lux-slider" min="10" max="90" step="5" value="40" oninput="calculateCoopROI()">
+                    </div>
+
+                    <!-- ADR Large Slider -->
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="adr-large-slider">ราคาเฉลี่ยต่อคืน: กลุ่มบ้านสนามกว้าง (3 หลัง)</label>
+                            <span class="slider-value"><span id="adr-large-val">11,000</span> บาท</span>
+                        </div>
+                        <input type="range" id="adr-large-slider" class="lux-slider" min="8000" max="18000" step="500" value="11000" oninput="calculateCoopROI()">
+                    </div>
+
+                    <!-- ADR Small Slider -->
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="adr-small-slider">ราคาเฉลี่ยต่อคืน: กลุ่มบ้านสนามเล็ก (4 หลัง)</label>
+                            <span class="slider-value"><span id="adr-small-val">8,000</span> บาท</span>
+                        </div>
+                        <input type="range" id="adr-small-slider" class="lux-slider" min="5000" max="12000" step="500" value="8000" oninput="calculateCoopROI()">
+                    </div>
+
+                    <!-- Direct Booking Ratio Slider -->
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="direct-slider">สัดส่วนการจองตรงผ่าน Facebook/Line (คอมมิชชัน 0%)</label>
+                            <span class="slider-value"><span id="direct-val">90</span>%</span>
+                        </div>
+                        <input type="range" id="direct-slider" class="lux-slider" min="10" max="100" step="5" value="90" oninput="calculateCoopROI()">
+                    </div>
+
+                    <!-- Electricity Slider -->
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <label for="electric-slider">ค่าไฟฟ้าเฉลี่ยต่อหลังต่อเดือน (Owner Expense)</label>
+                            <span class="slider-value"><span id="electric-val">6,000</span> บาท</span>
+                        </div>
+                        <input type="range" id="electric-slider" class="lux-slider" min="4000" max="10000" step="500" value="6000" oninput="calculateCoopROI()">
+                    </div>
+                </div>
+
+                <!-- Simulation Results -->
+                <div class="calc-results">
+                    <div class="result-title-main">รายงานผลประกอบการภาพรวมต่อเดือน</div>
+
+                    <!-- Row 1: Nights Booked -->
+                    <div class="result-group">
+                        <div class="result-row">
+                            <span class="result-label">จำนวนห้องจองทั้งหมด</span>
+                            <span class="result-val highlight-gold" id="total-nights-val">84 คืน</span>
+                        </div>
+                        <div class="result-desc">สนามกว้างจองได้ <span id="nights-large-val">36</span> คืน / สนามเล็กจองได้ <span id="nights-small-val">48</span> คืน</div>
+                    </div>
+
+                    <!-- Row 2: Gross Revenue -->
+                    <div class="result-group">
+                        <div class="result-row">
+                            <span class="result-label">รายได้รวมก่อนหักค่าคอม</span>
+                            <span class="result-val" id="gross-revenue-val">฿780,000</span>
+                        </div>
+                        <div class="result-desc">รายได้ดิบที่เกิดขึ้นก่อนการหักส่วนแบ่งและคอมมิชชันใดๆ</div>
+                    </div>
+
+                    <!-- Row 3: OTA Commission -->
+                    <div class="result-group">
+                        <div class="result-row">
+                            <span class="result-label">ค่าคอมมิชชันจ่ายให้ OTA (15%)</span>
+                            <span class="result-val highlight-rose" id="ota-comm-val">฿11,700</span>
+                        </div>
+                        <div class="result-desc">คำนวณจากสัดส่วนการจองผ่านเอเจนซี่ Agoda/Booking.com</div>
+                    </div>
+
+                    <!-- Row 4: Split Pool -->
+                    <div class="result-group">
+                        <div class="result-row">
+                            <span class="result-label">รายได้หลังหักคอมมิชชัน (Split Pool)</span>
+                            <span class="result-val highlight-emerald" id="net-revenue-val">฿768,300</span>
+                        </div>
+                        <div class="result-desc">ยอดเงินสุทธิที่จะนำมาจัดแบ่งแบ่ง 60% และ 40%</div>
+                    </div>
+
+                    <!-- Row 5: Owner Share -->
+                    <div class="result-group" style="background-color: rgba(255,255,255,0.02); padding: 10px; border-radius: 8px;">
+                        <div class="result-row">
+                            <span class="result-label"><strong>ฝั่งเจ้าบ้าน (60%):</strong> กำไรสุทธิเฉลี่ย/หลัง</span>
+                            <span class="result-val highlight-emerald" id="owner-net-per-house-val" style="color: var(--accent-emerald);">฿56,854</span>
+                        </div>
+                        <div class="result-desc">ส่วนแบ่ง 60% = <span id="owner-total-share-val">฿460,980</span> หักค่าใช้จ่ายค่าน้ำไฟเน็ตยามทั้ง 7 หลังรวม <span id="owner-total-utility-val">฿63,000</span></div>
+                    </div>
+
+                    <!-- Row 6: Management Share -->
+                    <div class="result-group" style="background-color: rgba(59, 130, 246, 0.05); padding: 10px; border-radius: 8px;">
+                        <div class="result-row">
+                            <span class="result-label"><strong>ฝั่งบริหารเรา (40%):</strong> งบดำเนินงานทั้งหมด</span>
+                            <span class="result-val highlight-emerald" id="mgmt-share-val" style="color: var(--accent-blue);">฿307,320</span>
+                        </div>
+                        <div class="result-desc">งบสำหรับค่าจ้างพนักงาน แม่บ้าน การตลาด บริหารงาน และเงินเดือนบริษัทเรา</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL 4: Setup Timeline -->
+        <div id="timeline-tab" class="tab-panel">
+            <div class="section-title" style="margin-top:0; justify-content: center;">
+                Roadmap แผนดำเนินการติตตั้งระบบ (Implementation Timeline)
+            </div>
+
+            <div class="timeline">
+                <!-- Step 1 -->
+                <div class="timeline-item active">
+                    <div class="timeline-dot">1</div>
+                    <div class="timeline-content">
+                        <div class="time-badge">สัปดาห์ที่ 1 : วางระบบและวิเคราะห์แบรนด์</div>
+                        <h4>ติดตั้งระบบ Property Management System (PMS)</h4>
+                        <ul>
+                            <li>ดำเนินการลงทะเบียน ติดตั้งระบบ PMS ในปฏิทินที่พัก แยกบัญชีบ้านพักทั้ง 7 หลัง</li>
+                            <li>วิเคราะห์กลยุทธ์โครงสร้างราคาขายแบบแยกสัดส่วน (Rate Structure) สำหรับสนามกว้างและสนามเล็ก</li>
+                            <li>วิเคราะห์โรงแรมคู่แข่งในพิกัดเขาใหญ่เพื่อหาช่องว่างราคาที่ดีที่สุด</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot">2</div>
+                    <div class="timeline-content">
+                        <div class="time-badge">สัปดาห์ที่ 2 : ปรับคอนเทนต์และเชื่อมสัญญาณ</div>
+                        <h4>ตั้งค่าเชื่อมต่อหน้าเว็บเอเจนซี่จองห้องพัก (OTAs Connect)</h4>
+                        <ul>
+                            <li>ติดตั้งปรับแต่ง Content Score บน Agoda/Booking.com ให้ได้คะแนนความสมบูรณ์ 100%</li>
+                            <li>เชื่อมโยงข้อมูลโครงสร้างราคากับ Channel Manager (CM) ซิงค์ปฏิทินการบล็อกห้องทั้ง 7 หลัง</li>
+                            <li>ตรวจสอบความถูกต้องของพิกัดและข้อมูลบ้านแต่ละหลังเพื่อไม่ให้เกิดข้อร้องเรียน</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot">3</div>
+                    <div class="timeline-content">
+                        <div class="time-badge">สัปดาห์ที่ 3 : อบรมพนักงานและทดสอบความเสถียร</div>
+                        <h4>การฝึกสอนพนักงานและการทดสอบระบบ (Training & Dry Run)</h4>
+                        <ul>
+                            <li>ส่งมอบคู่มือ VDO อบรมการเข้าใช้งาน PMS สำหรับพนักงานดูแลหน้าฟรอนต์และแม่บ้าน</li>
+                            <li>ซักซ้อมประสานงานระบบวนคิวจองตรงให้เป็นธรรมแก่เจ้าบ้านทั้ง 7 ราย</li>
+                            <li>ทดสอบการสร้างโปรโมชั่นแคมเปญบน OTAs และการรับจองตรงผ่านเพจ Facebook</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot">4</div>
+                    <div class="timeline-content">
+                        <div class="time-badge">สัปดาห์ที่ 4 เป็นต้นไป : เริ่มจำหน่ายและวิเคราะห์ผลเชิงลึก</div>
+                        <h4>เปิดระบบจำหน่ายและวิเคราะห์เพื่อขยายรายได้ (Go Live & Analyze)</h4>
+                        <ul>
+                            <li>เปิดสัญญาณการจองห้องพักเต็มรูปแบบบนทุกช่องทางออนไลน์</li>
+                            <li>ทีม Revenue Manager เริ่มปรับราคารายวันตามความต้องการตลาดแบบเรียลไทม์ (Dynamic Pricing)</li>
+                            <li>สรุปรายงานยอดรายได้ ค่าใช้จ่ายน้ำไฟเน็ตยาม และสรุปส่วนแบ่งส่งให้เจ้าของบ้านแต่ละหลังแบบรายเดือน</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proposal Actions -->
+        <div class="proposal-actions">
+            <button class="btn btn-outline" onclick="window.print()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                พิมพ์รายงานข้อเสนอ
+            </button>
+            <button class="btn btn-primary" onclick="alert('ระบบบันทึกแผนกลยุทธ์แล้ว สามารถนำลิงก์หน้านี้ไปเปิดเสนอกรรมการบอร์ดบริษัทได้ทันที')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                บันทึกแผนงานนี้
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        function switchTab(evt, tabId) {
+            const panels = document.querySelectorAll('.tab-panel');
+            panels.forEach(panel => panel.classList.remove('active'));
+
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+
+            if(tabId === 'roi-tab') {
+                calculateCoopROI();
+            }
+        }
+
+        function calculateCoopROI() {
+            // Inputs
+            const occ = parseInt(document.getElementById('occupancy-slider').value);
+            const adrLarge = parseInt(document.getElementById('adr-large-slider').value);
+            const adrSmall = parseInt(document.getElementById('adr-small-slider').value);
+            const directRatio = parseInt(document.getElementById('direct-slider').value);
+            const elecCost = parseInt(document.getElementById('electric-slider').value);
+
+            // Update Input Labels
+            document.getElementById('occ-val').innerText = occ;
+            document.getElementById('adr-large-val').innerText = adrLarge.toLocaleString();
+            document.getElementById('adr-small-val').innerText = adrSmall.toLocaleString();
+            document.getElementById('direct-val').innerText = directRatio;
+            document.getElementById('electric-val').innerText = elecCost.toLocaleString();
+
+            // Total nights in a month = 30 days
+            // Large yard: 3 houses * 30 days = 90 total room-nights available
+            // Small yard: 4 houses * 30 days = 120 total room-nights available
+            const totalAvailableNightsLarge = 90;
+            const totalAvailableNightsSmall = 120;
+
+            const nightsBookedLarge = Math.round(totalAvailableNightsLarge * (occ / 100));
+            const nightsBookedSmall = Math.round(totalAvailableNightsSmall * (occ / 100));
+            const totalNights = nightsBookedLarge + nightsBookedSmall;
+
+            // Revenues
+            const grossRevLarge = nightsBookedLarge * adrLarge;
+            const grossRevSmall = nightsBookedSmall * adrSmall;
+            const totalGrossRevenue = grossRevLarge + grossRevSmall;
+
+            // OTA Commission (15% commission on non-direct bookings)
+            const otaRatio = 100 - directRatio;
+            const otaRevenue = totalGrossRevenue * (otaRatio / 100);
+            const otaCommissionPaid = Math.round(otaRevenue * 0.15);
+
+            // Net Revenue Pool to Split (OTA commission is subtracted before split)
+            const netRevenuePool = totalGrossRevenue - otaCommissionPaid;
+
+            // 60/40 Split
+            const ownerTotalShare = Math.round(netRevenuePool * 0.60);
+            const mgmtShare = Math.round(netRevenuePool * 0.40);
+
+            // Owner Utilities Expenses (7 houses total)
+            const totalWaterCost = 7 * 2000;          // average 2,000 per house
+            const totalNetGuardCost = 7 * 1000;       // average 1,000 per house
+            const totalElecCost = 7 * elecCost;
+            const totalUtilities = totalWaterCost + totalNetGuardCost + totalElecCost;
+
+            // Owner Net Profit
+            const ownerNetTotalProfit = ownerTotalShare - totalUtilities;
+            const ownerNetProfitPerHouse = Math.round(ownerNetTotalProfit / 7);
+
+            // Update UI Elements
+            document.getElementById('total-nights-val').innerText = totalNights + " คืน / เดือน";
+            document.getElementById('nights-large-val').innerText = nightsBookedLarge;
+            document.getElementById('nights-small-val').innerText = nightsBookedSmall;
+            document.getElementById('gross-revenue-val').innerText = "฿" + totalGrossRevenue.toLocaleString();
+            document.getElementById('ota-comm-val').innerText = "฿" + otaCommissionPaid.toLocaleString();
+            document.getElementById('net-revenue-val').innerText = "฿" + netRevenuePool.toLocaleString();
+            document.getElementById('owner-total-share-val').innerText = "฿" + ownerTotalShare.toLocaleString();
+            document.getElementById('owner-total-utility-val').innerText = "฿" + totalUtilities.toLocaleString();
+            
+            // Handle negative values for owner profit gracefully
+            if (ownerNetProfitPerHouse < 0) {
+                document.getElementById('owner-net-per-house-val').innerText = "฿" + ownerNetProfitPerHouse.toLocaleString();
+                document.getElementById('owner-net-per-house-val').style.color = "var(--accent-rose)";
+            } else {
+                document.getElementById('owner-net-per-house-val').innerText = "฿" + ownerNetProfitPerHouse.toLocaleString();
+                document.getElementById('owner-net-per-house-val').style.color = "var(--accent-emerald)";
+            }
+
+            document.getElementById('mgmt-share-val').innerText = "฿" + mgmtShare.toLocaleString();
+        }
+
+        // Initialize ROI on load
+        window.onload = function() {
+            calculateCoopROI();
+        };
+    </script>
+</body>
+</html>
