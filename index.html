@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>ระบบจำลองโมเดลธุรกิจพูลวิลล่าและแผน ORM - modernfes pool villa khao yai</title>
     <!-- Google Fonts: Prompt for Thai, Inter for English/Numbers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1197,10 +1198,184 @@
             color: #fbbf24;
             border: 1px solid rgba(245, 158, 11, 0.2);
         }
+
+        /* Lock Screen Overlay */
+        #lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #060913;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.3) 0px, transparent 55%), 
+                radial-gradient(at 100% 100%, rgba(244, 63, 94, 0.25) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(16, 185, 129, 0.2) 0px, transparent 60%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #lock-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .lock-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            text-align: center;
+            animation: lockFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes lockFadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .lock-logo-badge {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-emerald));
+            padding: 12px 20px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 20px rgba(217, 119, 6, 0.3);
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .lock-title {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .lock-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+        .lock-input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .lock-input {
+            width: 100%;
+            background-color: rgba(6, 9, 19, 0.7);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 14px 45px 14px 16px;
+            color: var(--text-primary);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+            letter-spacing: 2px;
+            transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+        }
+        .lock-input:focus {
+            border-color: var(--accent-emerald);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+        }
+        .lock-eye-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+        .lock-eye-btn:hover {
+            color: var(--text-primary);
+        }
+        .lock-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-emerald), #059669);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            transition: all var(--transition-speed) ease;
+            font-family: var(--font-family);
+        }
+        .lock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.45);
+        }
+        .lock-error-msg {
+            font-size: 0.85rem;
+            color: var(--accent-rose);
+            margin-top: 12px;
+            display: none;
+            animation: lockShake 0.4s ease;
+        }
+        @keyframes lockShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+        .btn-system-lock {
+            background-color: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+            color: var(--accent-rose);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-family);
+        }
+        .btn-system-lock:hover {
+            background-color: var(--accent-rose);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+        }
     </style>
+
 
 </head>
 <body>
+
+    <!-- System Lock Screen Overlay -->
+    <div id="lock-screen">
+        <div class="lock-container">
+            <div class="lock-logo-badge">m+</div>
+            <div class="lock-title">ระบบข้อมูลภายในความร่วมมือ</div>
+            <div class="lock-subtitle">กรุณาใส่รหัสผ่านเพื่อเข้าใช้งานแผนงานโมเดลธุรกิจ</div>
+            
+            <div class="lock-input-group">
+                <input type="password" id="lock-pass-input" class="lock-input" placeholder="••••••••" onkeydown="if(event.key === 'Enter') checkUnlockPassword()">
+                <button type="button" class="lock-eye-btn" onclick="togglePasswordVisibility()">
+                    <svg id="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+            </div>
+            
+            <button class="lock-btn" onclick="checkUnlockPassword()">ปลดล็อกระบบ</button>
+            <div id="lock-error" class="lock-error-msg">รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง</div>
+        </div>
+    </div>
 
     <svg style="display: none;">
         <defs>
@@ -1227,9 +1402,15 @@
                         <p>สำหรับ modernfes pool villa khao yai (กลุ่มบ้านเครือข่าย 7 หลัง)</p>
                     </div>
                 </div>
-                <div class="meta-badge">
-                    <span class="status-dot"></span>
-                    <span>โมเดลธุรกิจแบ่งสัดส่วนรายได้ 60/40 แบบไดนามิก</span>
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <div class="meta-badge">
+                        <span class="status-dot"></span>
+                        <span>โมเดลธุรกิจแบ่งสัดส่วนรายได้ 60/40 แบบไดนามิก</span>
+                    </div>
+                    <button class="btn-system-lock" onclick="lockSystem()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        ล็อกระบบ
+                    </button>
                 </div>
             </div>
         </header>
@@ -2142,6 +2323,53 @@
     </div>
 
     <script>
+        // Authentication Configuration
+        const SECURE_PASS_HASH = "mplus2026";
+
+        function checkUnlockPassword() {
+            const inputVal = document.getElementById('lock-pass-input').value;
+            const errorMsg = document.getElementById('lock-error');
+            
+            if (inputVal === SECURE_PASS_HASH) {
+                localStorage.setItem('modernfes_unlocked', 'true');
+                document.getElementById('lock-screen').classList.add('hidden');
+                errorMsg.style.display = 'none';
+                document.getElementById('lock-pass-input').value = '';
+            } else {
+                errorMsg.style.display = 'block';
+                errorMsg.style.animation = 'none';
+                errorMsg.offsetHeight; // trigger reflow
+                errorMsg.style.animation = 'lockShake 0.4s ease';
+                document.getElementById('lock-pass-input').focus();
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById('lock-pass-input');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+            } else {
+                input.type = 'password';
+                eyeIcon.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+            }
+        }
+
+        function lockSystem() {
+            localStorage.removeItem('modernfes_unlocked');
+            document.getElementById('lock-screen').classList.remove('hidden');
+            document.getElementById('lock-pass-input').focus();
+        }
+
+        function checkInitialAuth() {
+            if (localStorage.getItem('modernfes_unlocked') === 'true') {
+                document.getElementById('lock-screen').classList.add('hidden');
+            } else {
+                document.getElementById('lock-screen').classList.remove('hidden');
+            }
+        }
         // YoY Bookings Data JSON
         const rawBookingData = [
     {
@@ -4031,6 +4259,7 @@
 
         // Initialize ROI on load
         window.onload = function() {
+            checkInitialAuth();
             calculateModernfesROI();
             renderYoYDashboard();
         };
