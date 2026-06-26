@@ -1,0 +1,33 @@
+Type,Booking number,Check-in,Checkout,Guest name,Reservation status,Currency,Payment status,Amount,Commission,Payments Service Fee,Net,Payout date,Payout ID
+Reservation,4371679007,"Oct 23, 2024","Oct 24, 2024",woraphot lalitjirakun,ok,THB,by_booking,21800,-3270,-545,17985,"Oct 31, 2024",l3hwGwprW5ksPdVC
+Reservation,4671716303,"Nov 16, 2024","Nov 17, 2024",Sataluck Duangden,ok,THB,by_booking,20900,-3135,-522.5,17242.5,"Nov 21, 2024",uTs0S7SOXmPt09Qy
+Reservation,4934681532,"Dec 17, 2024","Dec 19, 2024",Lalita Prae,ok,THB,by_booking,33800,-5070,-845,27885,"Dec 26, 2024",NJMIj2bjL1wTzEih
+Reservation,4711147377,"Dec 24, 2024","Dec 26, 2024",Jeeravich Jareonthamasuk,ok,THB,by_booking,37800,-5670,-945,31185,"Jan 2, 2025",HiNN3fFJb1qFhK7c
+Reservation,4724292941,"Jan 30, 2025","Jan 31, 2025",TONG TONG XU,ok,THB,by_booking,16900,-2535,-422.5,13942.5,"Feb 6, 2025",hX3eAmNUXWaCDTYu
+Reservation,4999919107,"Apr 26, 2025","Apr 27, 2025",Samatiya Sae-tang,ok,THB,by_booking,14900,-2235,-372.5,12292.5,"May 1, 2025",BzMkTqoqnedl7aX1
+Reservation,4541077896,"Apr 26, 2025","Apr 27, 2025",Thunchanok junak,ok,THB,by_booking,14900,-2235,-372.5,12292.5,"May 1, 2025",BzMkTqoqnedl7aX1
+Reservation,4733892931,"May 1, 2025","May 3, 2025",Sathit Ployjinda,ok,THB,by_booking,24800,-3720,-620,20460,"May 8, 2025",wQwqeit7lsRs4IG5
+Reservation,4789011501,"May 1, 2025","May 2, 2025",,ok,THB,by_booking,12900,-1935,-322.5,10642.5,"May 8, 2025",wQwqeit7lsRs4IG5
+Reservation,4862325803,"Jun 7, 2025","Jun 8, 2025",kalaya kutamasoon,ok,THB,by_booking,14900,-2235,-372.5,12292.5,"Jun 12, 2025",IinixXh01pBlW5Jt
+Reservation,6330908337,"Jul 19, 2025","Jul 20, 2025",Kantikorn luesamut,ok,THB,by_booking,12900,-1935,-322.5,10642.5,"Jul 24, 2025",e9Pyluqed4Ml3k9Y
+Reservation,5634264301,"Jul 19, 2025","Jul 20, 2025",Reem Alanazi,ok,THB,by_booking,14900,-2235,-372.5,12292.5,"Jul 24, 2025",e9Pyluqed4Ml3k9Y
+Reservation,6864841127,"Jul 26, 2025","Jul 27, 2025",Chayanun Charonerat,ok,THB,by_booking,15900,-2385,-397.5,13117.5,"Jul 31, 2025",9nuoPIUFfmOWN1YP
+Reservation,5271871542,"Jul 30, 2025","Jul 31, 2025",Sumetha Khunaviriyasiri,ok,THB,by_booking,12900,-1935,-322.5,10642.5,"Aug 7, 2025",n6Zj84Q7ZDcz6cEn
+Reservation,5019461235,"Aug 16, 2025","Aug 17, 2025",Thanyaporn Tantipanyakul,ok,THB,by_booking,12900,-1935,-322.5,10642.5,"Aug 21, 2025",VWEkxMWHr3LwVuN1
+Reservation,5746162936,"Aug 23, 2025","Aug 24, 2025",thidarat chailerd,ok,THB,by_booking,10900,-1635,-272.5,8992.5,"Aug 28, 2025",e4IRjiSXTkyevVVx
+Reservation,5726517944,"Aug 22, 2025","Aug 24, 2025",Saowanee Jinaporn,ok,THB,by_booking,21800,-3270,-545,17985,"Aug 28, 2025",e4IRjiSXTkyevVVx
+Reservation,5346129818,"Sep 6, 2025","Sep 7, 2025",Chalearmpol Phalasaen,ok,THB,by_booking,15900,-2385,-397.5,13117.5,"Sep 11, 2025",DyO3oAdRNt10VKHq
+Reservation,5326994185,"Sep 20, 2025","Sep 21, 2025",Phitcha Deemankongvanich,ok,THB,by_booking,15900,-2385,-397.5,13117.5,"Sep 25, 2025",hLwqxBWPvEFF8DwF
+Reservation,6671517074,"Sep 19, 2025","Sep 20, 2025",Sithawee Jirakiththanon,ok,THB,by_booking,15900,-2385,-397.5,13117.5,"Sep 25, 2025",hLwqxBWPvEFF8DwF
+Reservation,6332574763,"Sep 15, 2025","Sep 18, 2025",Brickblock App,ok,THB,by_booking,44700,-6705,-1117.5,36877.5,"Sep 25, 2025",hLwqxBWPvEFF8DwF
+Reservation,5088760054,"Oct 3, 2025","Oct 5, 2025",Kritagorn Yungyuen,ok,THB,by_booking,33800,-5070,-845,27885,"Oct 9, 2025",tz0VeIDwDpMpfyXi
+Reservation,5001104244,"Oct 18, 2025","Oct 19, 2025",suphak wonganu,ok,THB,by_booking,16900,-2535,-422.5,13942.5,"Oct 23, 2025",n7vybbhRDxCAnBlQ
+Reservation,4733087286,"Oct 23, 2025","Oct 25, 2025",Pei Yu Chai,ok,THB,by_booking,29800,-4470,-745,24585,"Oct 30, 2025",tV6vtarUUmO5wdhb
+Reservation,6354006425,"Oct 22, 2025","Oct 23, 2025",Nanthikan Phromdecha,ok,THB,by_booking,12900,-1935,-322.5,10642.5,"Oct 30, 2025",tV6vtarUUmO5wdhb
+Reservation,5457397284,"Nov 8, 2025","Nov 9, 2025",Sasit BhanupraBha,ok,THB,by_booking,15900,-2385,-397.5,13117.5,"Nov 13, 2025",7aw2cDNkSIVxSv9R
+Reservation,6352910788,"Dec 6, 2025","Dec 7, 2025",à¸à¸±à¸à¸à¸§à¸±à¸à¸£à¹ à¸à¸à¸±à¸¢à¸¨à¸±à¸à¸à¸´à¹à¹à¸¨à¸ à¸´à¸,ok,THB,by_booking,14900,-2235,-372.5,12292.5,"Dec 11, 2025",Rqwme7HbyPaFoMMs
+Reservation,5328882732,"Dec 5, 2025","Dec 6, 2025",SOJIRAT JIANPATTARAKUL,ok,THB,by_booking,16900,-2535,-422.5,13942.5,"Dec 11, 2025",Rqwme7HbyPaFoMMs
+Reservation,5868095263,"Dec 12, 2025","Dec 13, 2025",patcharamont vazinpongvanit,ok,THB,by_booking,16900,-2535,-422.5,13942.5,"Dec 18, 2025",RiAaGRP22dJcoQvp
+Reservation,6551384327,"Dec 18, 2025","Dec 20, 2025",Varinkarnkarn Rangsikriangkrai,ok,THB,by_booking,31800,-4770,-795,26235,"Dec 25, 2025",TxaeSFyb3xjmYE5g
+Reservation,6126231860,"Dec 31, 2025","Jan 2, 2026",Khemmanat Jeerarod,ok,THB,by_booking,47800,-7170,-1195,39435,"Jan 8, 2026",BbIlfAoDZKxHiXYx
+Reservation,5950158883,"Dec 31, 2025","Jan 1, 2026",Paphawarin Thaomek,ok,THB,by_booking,22900,-3435,-572.5,18892.5,"Jan 8, 2026",BbIlfAoDZKxHiXYx
