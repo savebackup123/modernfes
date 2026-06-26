@@ -1376,6 +1376,12 @@
             <div id="lock-error" class="lock-error-msg">รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง</div>
         </div>
     </div>
+    <script>
+        // Check authentication immediately during DOM parsing to prevent page content flash
+        if (sessionStorage.getItem('modernfes_unlocked') === 'true') {
+            document.getElementById('lock-screen').classList.add('hidden');
+        }
+    </script>
 
     <svg style="display: none;">
         <defs>
@@ -2331,7 +2337,7 @@
             const errorMsg = document.getElementById('lock-error');
             
             if (inputVal === SECURE_PASS_HASH) {
-                localStorage.setItem('modernfes_unlocked', 'true');
+                sessionStorage.setItem('modernfes_unlocked', 'true');
                 document.getElementById('lock-screen').classList.add('hidden');
                 errorMsg.style.display = 'none';
                 document.getElementById('lock-pass-input').value = '';
@@ -2358,13 +2364,13 @@
         }
 
         function lockSystem() {
-            localStorage.removeItem('modernfes_unlocked');
+            sessionStorage.removeItem('modernfes_unlocked');
             document.getElementById('lock-screen').classList.remove('hidden');
             document.getElementById('lock-pass-input').focus();
         }
 
         function checkInitialAuth() {
-            if (localStorage.getItem('modernfes_unlocked') === 'true') {
+            if (sessionStorage.getItem('modernfes_unlocked') === 'true') {
                 document.getElementById('lock-screen').classList.add('hidden');
             } else {
                 document.getElementById('lock-screen').classList.remove('hidden');
