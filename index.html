@@ -1193,6 +1193,39 @@
             color: #fbbf24;
             border: 1px solid rgba(245, 158, 11, 0.2);
         }
+        .yoy-preset-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+        }
+        .yoy-preset-btn {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 6px 14px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-family: var(--font-family);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+        }
+        .yoy-preset-btn:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .yoy-preset-btn.active {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
+            border-color: var(--accent-emerald);
+            color: var(--accent-emerald);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+            font-weight: 600;
+        }
+
 
         /* Lock Screen Overlay */
         #lock-screen {
@@ -2100,6 +2133,17 @@
 
             <!-- Dynamic Filter Bar -->
             <div class="yoy-filter-card">
+                <div class="yoy-preset-container">
+                    <span class="yoy-label" style="align-self: center; margin-bottom: 0; margin-right: 8px;">เลือกช่วงเวลาด่วน:</span>
+                    <button class="yoy-preset-btn" onclick="applyYoYPreset(1, 12, this)">ทั้งปี</button>
+                    <button class="yoy-preset-btn" onclick="applyYoYPreset(1, 3, this)">Q1 (ม.ค. - มี.ค.)</button>
+                    <button class="yoy-preset-btn" onclick="applyYoYPreset(4, 6, this)">Q2 (เม.ย. - มิ.ย.)</button>
+                    <button class="yoy-preset-btn" onclick="applyYoYPreset(7, 9, this)">Q3 (ก.ค. - ก.ย.)</button>
+                    <button class="yoy-preset-btn" onclick="applyYoYPreset(10, 12, this)">Q4 (ต.ค. - ธ.ค.)</button>
+                    <button class="yoy-preset-btn" onclick="applyYoYPreset(1, 6, this)">ครึ่งปีแรก</button>
+                    <button class="yoy-preset-btn" onclick="applyYoYPreset(7, 12, this)">ครึ่งปีหลัง</button>
+                    <button class="yoy-preset-btn" onclick="applyYoYPreset(11, 2, this)">ไฮซีซั่นเขาใหญ่ (พ.ย. - ก.พ.)</button>
+                </div>
                 <div class="yoy-filter-grid">
                     <div class="filter-col">
                         <label class="yoy-label" for="yoy-y1">ปีฐาน (Base Year)</label>
@@ -3852,6 +3896,19 @@
             renderYoYDashboard();
         }
 
+        function applyYoYPreset(startMonth, endMonth, btnElement) {
+            document.getElementById('yoy-m-start').value = startMonth;
+            document.getElementById('yoy-m-end').value = endMonth;
+            
+            const buttons = document.querySelectorAll('.yoy-preset-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if (btnElement) {
+                btnElement.classList.add('active');
+            }
+            
+            renderYoYDashboard();
+        }
+
         function initYoYDashboard() {
             // Can add default setup stuff here if needed
         }
@@ -3892,7 +3949,9 @@
                     const bMonth = checkinDate.getMonth() + 1; // 1-indexed
                     
                     const matchesYear = bYear === year;
-                    const matchesMonth = bMonth >= mStart && bMonth <= mEnd;
+                    const matchesMonth = mStart <= mEnd 
+                        ? (bMonth >= mStart && bMonth <= mEnd) 
+                        : (bMonth >= mStart || bMonth <= mEnd);
                     const matchesChannel = (channelFilter === 'All') || (b.source === channelFilter);
                     
                     return matchesYear && matchesMonth && matchesChannel;
@@ -4001,15 +4060,30 @@
             const y1Monthly = getMonthlyRevenues(p1Data);
             const y2Monthly = getMonthlyRevenues(p2Data);
 
-            // Find max monthly value in selected range for scale
-            let maxVal = 10000;
-            for (let m = mStart; m <= mEnd; m++) {
-                if (y1Monthly[m] > maxVal) maxVal = y1Monthly[m];
-                if (y2Monthly[m] > maxVal) maxVal = y2Monthly[m];
+            // Generate chronological list of months to show
+            const monthsList = [];
+            if (mStart <= mEnd) {
+                for (let m = mStart; m <= mEnd; m++) {
+                    monthsList.push(m);
+                }
+            } else {
+                for (let m = mStart; m <= 12; m++) {
+                    monthsList.push(m);
+                }
+                for (let m = 1; m <= mEnd; m++) {
+                    monthsList.push(m);
+                }
             }
 
+            // Find max monthly value in selected range for scale
+            let maxVal = 10000;
+            monthsList.forEach(m => {
+                if (y1Monthly[m] > maxVal) maxVal = y1Monthly[m];
+                if (y2Monthly[m] > maxVal) maxVal = y2Monthly[m];
+            });
+
             // Draw month bars
-            for (let m = mStart; m <= mEnd; m++) {
+            monthsList.forEach(m => {
                 const y1Val = y1Monthly[m];
                 const y2Val = y2Monthly[m];
 
@@ -4038,7 +4112,23 @@
                 `;
                 
                 chartGrid.appendChild(barGroup);
-            }
+            });
+
+            // Highlight active preset button if matching current selection
+            const presetButtons = document.querySelectorAll('.yoy-preset-btn');
+            presetButtons.forEach(btn => {
+                const onclickStr = btn.getAttribute('onclick');
+                const match = onclickStr.match(/applyYoYPreset\((\d+),\s*(\d+)/);
+                if (match) {
+                    const pStart = parseInt(match[1]);
+                    const pEnd = parseInt(match[2]);
+                    if (pStart === mStart && pEnd === mEnd) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                }
+            });
 
             // 2. Channel Distribution Calculations (For Year 2 Period)
             let agodaRev = 0;
